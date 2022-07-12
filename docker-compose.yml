@@ -86,6 +86,20 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
+    pma:
+        image: phpmyadmin:5.1
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${DB_HOST}
+            - PMA_USER=${DB_USERNAME}
+            - PMA_PASSWORD=${DB_PASSWORD}
+            - PMA_PORT=${DB_PORT}
+        depends_on:
+            - mysql
+        ports:
+            - 8888:80
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
